@@ -2,11 +2,6 @@ const express = require ('express');
 const router = express.Router();
 
 router.use('/',(req,res) =>{
-    // obj ={
-    //     a:"idfj",
-    //     number: 34
-    // }
-    // res.json(obj)
-    res.json([])
+    res.json([])       // in cromeweb output is []
 })
     module.exports =router
