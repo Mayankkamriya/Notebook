@@ -5,18 +5,17 @@ connectToMongo();
 const app = express();
 const port = 3000;
 
-app.get('/', (req,res) =>
-    res.send('Hello Manoj')
+app.use('/api/auth', require ('./routes/auth'))
+app.use('/api/notes', require ('./routes/notes'))
+
+app.get('/', (req,res) => 
+    res.send('Hello home')
 ),
-app.get('/api/v1/sinup', (req,res) => 
-    res.send('Hello sinup')
-),
-app.get('/api/v1/login', (req,res) => 
+app.get('/api/login', (req,res) => //by adding /api/login in cromeweb you get Hello login
     res.send('Hello login')
 )
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
-
 
