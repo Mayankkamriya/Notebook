@@ -20,5 +20,8 @@ const UserSchema = new Schema({
             default: Date.now
         }
 });
-
-    module.exports = mongoose.model('user', UserSchema);
+ 
+const User=  mongoose.model('user', UserSchema);
+User.createIndexes(); //We have comment out the below line because we want to add create index function so that in database table our title created
+module.exports =User
+    // module.exports = mongoose.model('user', UserSchema);
