@@ -10,4 +10,3 @@ const connectToMongo = async () => {   //predefined function
 
 module.exports = connectToMongo;
 
-
