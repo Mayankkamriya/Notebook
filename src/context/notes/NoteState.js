@@ -7,7 +7,7 @@ const NoteState = (props)=>{
     const NotesInitial =[]
       const [notes, setNotes] = useState(NotesInitial);
 
-     // Get all note
+     // Fetch all note
      const getnote=  async()=>{
       // API call 
 const response = await fetch(`${host}/api/notes/fetchallnotes`, {
@@ -21,7 +21,6 @@ const json = await response.json();
 console.log(json)
 setNotes(json)
   }
-
      
       //Add note
       const addnote=  async({title,description,tag})=>{
@@ -35,15 +34,6 @@ setNotes(json)
     body: JSON.stringify({title,description,tag})
 })
         const note = await response.json();
-        // {
-          // "_id": "66ea66ee7bca32927490166e",
-          // "user": "66e96a615259131cd6fe21a3",
-          // "title": title,
-          // "description": description,
-          // "tag": "personal",
-          // "date": "2024-09-18T05:36:46.312Z",
-          // "__v": 0
-        // }
           setNotes(notes.concat(note))
       }
 
@@ -61,7 +51,6 @@ setNotes(json)
       // const deletenote=(id)=>{
       const newnote =notes.filter((note)=>{ return note._id!==id})
         setNotes(newnote);
-      // }
 } else {
     console.error('Failed to delete the note');
 }
@@ -78,20 +67,36 @@ const editnote= async(title,description,tag,id)=>{
       "Content-Type": "application/json",
       "auth-token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjZlOTZhNjE1MjU5MTMxY2Q2ZmUyMWEzIn0sImlhdCI6MTcyNjU3MzE1M30.SNW6cwF2_JeOb5AeSMPwVG7_j616Gd5UtAmxH8McRAQ",
     },
-    body: JSON.stringify(title,description,tag)
+    body: JSON.stringify({title,description,tag})
 })
 
+if (response.ok) {
+console.log(response);
+const json = await response.json(); 
+console.log(json);
+
+// Logic to update the note in the frontend after the backend has updated it
+const updatedNotes = notes.map((note) => note._id === id ? json : note);
+setNotes(updatedNotes);
+} 
+// else {
+//   console.error('Failed to update the note');
+// }
+
+let newNotes =JSON.parse(JSON.stringify(notes))
       // login to edit in client
 
-    for (let index = 0; index < notes.length; index++) {
-      const element = notes[index];
+    for (let index = 0; index < newNotes.length; index++) {
+      const element = newNotes[index];
       if (element._id === id) {
-        element.title= title;
-        element.description= description;
-        element.tag= tag;
+        newNotes[index].title= title;
+        newNotes[index].description= description;
+        newNotes[index].tag= tag;
+        break;
       }
-      
-    }}
+    } 
+    setNotes(newNotes);
+  }
      
 
     return (
@@ -101,5 +106,4 @@ const editnote= async(title,description,tag,id)=>{
     )}
 
 export default NoteState;
-
 

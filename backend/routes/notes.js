@@ -57,15 +57,22 @@ const {body,validationResult} = require('express-validator');
        
         const newNote={}; // Initialize newNote object with title, description, and tag
         if(title){newNote.title=title};
-        if(description){newNote.description=description};
+        if(description)  newNote.description=description;
         if(tag){newNote.tag=tag};
 
         try{
+            if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+                return res.status(400).send("Invalid note ID");
+            }
+
 //Find the note to be updates and update it 
         let note = await Note.findById(req.params.id);
 
 // Add error handling for invalid note ID and unauthorized access
-        if(!note){return res.status(404).send("not found")} // if note don't found show error
+        if(!note){
+            return res.status(404).send("not found")
+        } // if note don't found show error
+
         if(note.user.toString()!== req.user.id ){
         return res.status(401).send("Not Allowed to do");
 }
@@ -80,12 +87,17 @@ const {body,validationResult} = require('express-validator');
        }) 
 
 
-
          // Router 4: Delete Note using: delete "/api/notes/deletenote". login required  
 
  //Create delete note route and validate user permission
  router.delete('/deletenote/:id' ,fetchuser,async(req,res)=>{
     try{
+
+ // Check if the provided ID is valid
+ if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    return res.status(400).send("Invalid note ID");
+}
+
 //Find the note to be delete it 
     let note = await Note.findById(req.params.id);
 
@@ -106,3 +118,4 @@ res.json({ "Success":"Note has been deleted" ,note:note});// after delete show s
 
 
     module.exports =router // Export router for notes
+    
