@@ -59,7 +59,7 @@ setNotes(json)
 
       // Edit note
 const editnote= async(title,description,tag,id)=>{
-
+try{
   // API call 
   const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
     method: "PUT",
@@ -70,32 +70,21 @@ const editnote= async(title,description,tag,id)=>{
     body: JSON.stringify({title,description,tag})
 })
 
+
+const responseData = await response.json();
 if (response.ok) {
-console.log(response);
-const json = await response.json(); 
-console.log(json);
-
-// Logic to update the note in the frontend after the backend has updated it
-const updatedNotes = notes.map((note) => note._id === id ? json : note);
-setNotes(updatedNotes);
-} 
-// else {
-//   console.error('Failed to update the note');
-// }
-
-let newNotes =JSON.parse(JSON.stringify(notes))
-      // login to edit in client
-
-    for (let index = 0; index < newNotes.length; index++) {
-      const element = newNotes[index];
-      if (element._id === id) {
-        newNotes[index].title= title;
-        newNotes[index].description= description;
-        newNotes[index].tag= tag;
-        break;
-      }
-    } 
-    setNotes(newNotes);
+  // CHANGED: Simplified state update
+  setNotes(prevNotes => 
+    prevNotes.map(note => 
+      note._id === id ? responseData : note
+      ));
+} else {
+  console.error('Failed to update the note');
+}
+} catch (error) {
+// ADDED: Better error logging
+console.error('Error updating note:', error);
+  };
   }
      
 
@@ -103,7 +92,7 @@ let newNotes =JSON.parse(JSON.stringify(notes))
         <NoteContext.Provider value={{notes,setNotes,addnote,editnote,deletenote,getnote}}>
             {props.children}
         </NoteContext.Provider>
+    
     )}
-
 export default NoteState;
 

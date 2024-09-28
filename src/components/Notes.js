@@ -23,12 +23,12 @@ const Notes = () => {
 
   const handleCloseModal = () => setShowModal(false);
 
-  const handleUpdateNote = () => {
+  const handleUpdateNote = (id,title,description,tag) => {
     console.log(note)
     // Call your update note function here with `note`
     // updateNote(note._id, note.title, note.description, note.tag);
     handleCloseModal();
-    editnote(note._id,note.title ,note.description ,note.tag );
+    editnote(note.id,note.title ,note.description ,note.tag );
   };
 
   return (
