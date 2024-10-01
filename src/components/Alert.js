@@ -7,14 +7,14 @@ const Alert = (props) => {
 
        const timer = setTimeout(() => {
          setVisible (false)
-       }, 1500);
+       }, 1200);
        
       return () => clearTimeout(timer);
     }, [props]);
     
   return (
 visible &&(
-<div className="alert alert-primary" role="alert">
+<div className={`alert my-2 alert-${props.type}`} role="alert">
     {props.message}
 </div>
   ))

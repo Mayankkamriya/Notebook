@@ -21,6 +21,6 @@ app.get('/api/login', (req,res) => //by adding '/api/login' in cromeweb you get 
 )
 
 app.listen(port, () => {
-  console.log(`iNoteBook listening at http://localhost:${port}`);
+  console.log(`NoteBook listening at http://localhost:${port}`);
 });
 

@@ -4,8 +4,11 @@ import Notes from './Notes'
 const Home = () => {
 
   return (<>
-
+  
+<div className='container' >
 <Notes/>
+</div>
+
 
 </>)}
 

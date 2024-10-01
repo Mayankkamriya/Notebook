@@ -1,0 +1,11 @@
+
+.alert-fixed {
+    position: fixed;
+    top: 25px; 
+    z-index: 999; /* Ensures it appears above other content */
+    left: 0;
+    height: 50px;
+    justify-content: center; 
+    align-items: center;
+    width: 100%;  
+  }

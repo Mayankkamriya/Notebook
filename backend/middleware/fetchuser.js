@@ -11,7 +11,9 @@ const fetchuser=(req,res,next)=>{
 
     try{
 const data = jwt.verify(token,JWT_SECRET);//verify token with JWT
-req.user= data.user;// attach user to req after token verification
+
+// req.user= data.user;// attach user to req after token verification
+req.user = { id: data.user.id };
 next();}
 
 catch(error){
@@ -19,7 +21,6 @@ catch(error){
     res.status(401).send({error:"Please authenticate using a valid token"})
     }
 }
-
 
 
 module.exports = fetchuser;
