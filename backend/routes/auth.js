@@ -9,6 +9,19 @@ var fetchuser = require('../middleware/fetchuser');
 
 const JWT_SECRET = 'mayankis';
 
+// Route to get logged-in user's details
+router.get('/getuser', fetchuser, async (req, res) => {
+    try {
+        // Fetch user details using the user ID from the token
+        const userId = req.user.id;
+        const user = await User.findById(userId).select('-password'); // Exclude password
+        res.json(user);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
 // Router 1: Create a user using post "/api/auth/createuser" 
 router.post('/createuser',[  
         body('name','Enter a valid name').isLength({min:3}), 
@@ -118,7 +131,7 @@ const payload ={
             return res.status(401).json({ error: "Unauthorized: Invalid Token" });
         }
         
-       userId = req.user.id; // Extract user id from token
+     const userId = req.user.id; // Extract user id from token
        const user = await User.findById(userId).select("-password") //return user data except password
         res.send(user)
 

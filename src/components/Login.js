@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Alert from './Alert';
 import './component.css'
 
-const Login = () => {
+const Login = ({ onLogin }) => {
 
     const [credential, setcredential] = useState({email:"",password:""}); 
     const [alertmessage, setAlertMessage] = useState({ message: '', type: '' }); 
@@ -15,6 +15,7 @@ const Login = () => {
 
   const handlesubmit = async(e) => {
     e.preventDefault();
+
     const response = await fetch("http://localhost:5000/api/auth/login", {
       method: "POST",
       headers: {
@@ -27,7 +28,7 @@ const Login = () => {
       if(json.success){
         //save the auth token and redirect
         localStorage.setItem('token', json.token);
-
+      onLogin(); 
         setAlertMessage({ message: 'Login successful', type: 'success' })
       setTimeout(() => {
         Navigate('/');

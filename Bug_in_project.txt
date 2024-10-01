@@ -1,0 +1,9 @@
+
+// Here I am writing only that points that I think that there is a bug in this project.
+
+
+1.   I have a doubt that logout button is not working at in single click.
+
+2.   I have a doubt that if you login perfectly then you close the app and if you again do the command in vs code npm run both/start then it start from the login user which is incorrect that should not be the ideal scenario (not good for user).
+
+3.  This is a real incident I have login and ahve note in that account perfectly then close the app then again I pass npm run start in vs code then but it is not showing The login page it is showing me add a note page but without any notes and username of welcome guest.
