@@ -5,6 +5,8 @@ import './component.css'
 
 const Login = ({ onLogin }) => {
 
+  const backend = process.env.BACKEND
+
     const [credential, setcredential] = useState({email:"",password:""}); 
     const [alertmessage, setAlertMessage] = useState({ message: '', type: '' }); 
     let Navigate = useNavigate();
@@ -16,7 +18,7 @@ const Login = ({ onLogin }) => {
   const handlesubmit = async(e) => {
     e.preventDefault();
 
-    const response = await fetch("http://localhost:5000/api/auth/login", {
+    const response = await fetch(`${backend}/api/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

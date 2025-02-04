@@ -12,7 +12,7 @@ const NoteState = (props)=>{
   const [alertmessage, setAlertMessage] = useState({ message: '', type: '' }); 
   let Navigate = useNavigate();
 
-  const host = "http://localhost:5000"
+  const host = process.env.BACKEND
 
     const NotesInitial =[]
       const [notes, setNotes] = useState(NotesInitial);

@@ -13,10 +13,11 @@ import SignUp from './components/SignUp';
 function App() {
 
   const [userName, setUserName] = useState('');
+  const backend = process.env.BACKEND
 
   // useEffect(() => {
     const getUserDetails = async () => {
-      const response = await fetch('http://localhost:5000/api/auth/getuser', {
+      const response = await fetch(`${backend}/api/auth/getuser`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

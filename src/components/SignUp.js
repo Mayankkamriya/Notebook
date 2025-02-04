@@ -27,9 +27,9 @@ const SignUp = () => {
     //   if(user){         //If user already exists it return sorry a user....
     //     return res.status(400).json({ error: "sorry a user with this email already exist"})
     // }
-
+    const backend = process.env.BACKEND
     
-    const response = await fetch("http://localhost:5000/api/auth/createuser", {
+    const response = await fetch(`${backend}/api/auth/createuser`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
